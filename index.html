@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ali Haydar Genç | Çocuk Kitapları</title>
+  <style>
+    :root{
+      --bg:#f7f3ea;
+      --card:#ffffff;
+      --text:#223;
+      --muted:#667085;
+      --accent:#5b7cfa;
+      --accent2:#eef2ff;
+      --border:#e7e7ee;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:Arial, Helvetica, sans-serif;
+      background:var(--bg);
+      color:var(--text);
+    }
+    header{
+      padding:48px 20px 30px;
+      text-align:center;
+    }
+    h1{margin:0 0 10px;font-size:clamp(32px,5vw,52px)}
+    header p{margin:0;color:var(--muted)}
+    main{
+      max-width:1100px;
+      margin:auto;
+      padding:20px;
+    }
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+      gap:20px;
+    }
+    .card{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:18px;
+      overflow:hidden;
+      box-shadow:0 8px 25px rgba(0,0,0,.05);
+    }
+    .cover{
+      aspect-ratio:4/5;
+      width:100%;
+      object-fit:cover;
+      background:#ddd;
+      display:block;
+    }
+    .content{padding:18px}
+    h2{
+      font-size:20px;
+      margin:0 0 8px;
+    }
+    .desc{
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.5;
+      min-height:42px;
+    }
+    .actions{
+      display:flex;
+      gap:10px;
+      margin-top:16px;
+      flex-wrap:wrap;
+    }
+    a.btn{
+      text-decoration:none;
+      padding:10px 14px;
+      border-radius:10px;
+      font-weight:700;
+      font-size:14px;
+      display:inline-block;
+    }
+    .primary{
+      background:var(--accent);
+      color:white;
+    }
+    .secondary{
+      background:var(--accent2);
+      color:var(--accent);
+    }
+    footer{
+      text-align:center;
+      color:var(--muted);
+      padding:40px 20px;
+      font-size:13px;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Çocuk Kitapları</h1>
+  <p>Ali Haydar Genç</p>
+</header>
+
+<main>
+  <div class="grid">
+
+    <article class="card">
+      <img class="cover" src="kapaklar/kirmizi-top.jpg" alt="Ali ve Kaybolan Kırmızı Top">
+      <div class="content">
+        <h2>Ali ve Kaybolan Kırmızı Top</h2>
+        <p class="desc">Ali'nin kaybolan kırmızı topunu ararken yaşadığı küçük macera.</p>
+        <div class="actions">
+          <a class="btn primary" href="pdf/Ali_ve_Kaybolan_Kirmizi_Top.pdf" target="_blank">Kitabı Oku</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="cover" src="kapaklar/ucurtma.jpg" alt="Ali ve Rüzgara Takılan Uçurtma">
+      <div class="content">
+        <h2>Ali ve Rüzgara Takılan Uçurtma</h2>
+        <p class="desc">Rüzgârlı bir günde başlayan eğlenceli bir uçurtma macerası.</p>
+        <div class="actions">
+          <a class="btn primary" href="pdf/Ali_ve_Ruzgara_Takilan_Ucurtma.pdf" target="_blank">Kitabı Oku</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="cover" src="kapaklar/yagmurlu-gun.jpg" alt="Ali ve Yağmurlu Gün Macerası">
+      <div class="content">
+        <h2>Ali ve Yağmurlu Gün Macerası</h2>
+        <p class="desc">Yağmurlu bir günün nasıl eğlenceli bir keşfe dönüştüğünü anlatan hikâye.</p>
+        <div class="actions">
+          <a class="btn primary" href="pdf/Ali_ve_Yagmurlu_Gun_Macerasi.pdf" target="_blank">Kitabı Oku</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="cover" src="kapaklar/yildiz-kurabiyeler.jpg" alt="Ali ve Yıldız Kurabiyeler">
+      <div class="content">
+        <h2>Ali ve Yıldız Kurabiyeler</h2>
+        <p class="desc">Mutfakta geçen sıcak ve eğlenceli bir çocuk hikâyesi.</p>
+        <div class="actions">
+          <a class="btn primary" href="pdf/Ali_ve_Yildiz_Kurabiyeler.pdf" target="_blank">Kitabı Oku</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="cover" src="kapaklar/balik.jpg" alt="Ali ile Babası Balık Tutmaya Gidiyor">
+      <div class="content">
+        <h2>Ali ile Babası Balık Tutmaya Gidiyor</h2>
+        <p class="desc">Baba-oğul birlikte geçirilen keyifli bir balık tutma günü.</p>
+        <div class="actions">
+          <a class="btn primary" href="pdf/Ali_ile_Babasiyla_Balik_Tutmaya_Gidiyor.pdf" target="_blank">Kitabı Oku</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="cover" src="kapaklar/kamp.jpg" alt="Ali ile Babası Kamp Yapmaya Gidiyor">
+      <div class="content">
+        <h2>Ali ile Babası Kamp Yapmaya Gidiyor</h2>
+        <p class="desc">Doğada geçirilen eğlenceli bir kamp gününü anlatan çocuk hikâyesi.</p>
+        <div class="actions">
+          <a class="btn primary" href="pdf/Ali_ile_Babasiyla_Kamp_Yapmaya_Gidiyor.pdf" target="_blank">Kitabı Oku</a>
+        </div>
+      </div>
+    </article>
+
+  </div>
+</main>
+
+<footer>
+  © 2026 Ali Haydar Genç
+</footer>
+
+</body>
+</html>

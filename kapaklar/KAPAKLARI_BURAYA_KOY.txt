@@ -1,0 +1,2 @@
+Kapak görsellerini bu klasöre koy.
+Dosya adları index.html içindeki src değerleriyle aynı olmalı.

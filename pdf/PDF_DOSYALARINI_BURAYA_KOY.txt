@@ -1,0 +1,2 @@
+PDF dosyalarını bu klasöre koy.
+Dosya adları index.html içindeki href değerleriyle aynı olmalı.
