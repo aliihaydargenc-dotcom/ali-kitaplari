@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=yes">
+  <meta name="theme-color" content="#ffffff">
+  <title>Kitap Okuyucu</title>
+  <style>
+    *{box-sizing:border-box}
+    html,body{margin:0;min-height:100%;background:#e9e6df;color:#222;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+    .top{position:sticky;top:0;z-index:20;padding:calc(8px + env(safe-area-inset-top)) 8px 8px;background:rgba(255,255,255,.97);border-bottom:1px solid #ddd;box-shadow:0 2px 10px rgba(0,0,0,.08)}
+    .title{font-weight:800;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:0 6px 8px}
+    .controls{display:flex;align-items:center;justify-content:center;gap:6px;flex-wrap:wrap}
+    button,a{font:inherit}
+    .btn{border:0;border-radius:9px;min-height:40px;padding:8px 12px;background:#3567d6;color:#fff;text-decoration:none;font-size:14px;font-weight:800;cursor:pointer;touch-action:manipulation}
+    .btn.secondary{background:#eef2fb;color:#315daf}
+    .btn:disabled{opacity:.45;cursor:default}
+    .pageinfo{min-width:82px;text-align:center;font-size:14px;font-weight:800}
+    #viewer{display:flex;justify-content:center;align-items:flex-start;min-height:calc(100vh - 105px);padding:12px 6px 42px;overflow:auto;-webkit-overflow-scrolling:touch}
+    #canvas{display:none;background:#fff;box-shadow:0 4px 18px rgba(0,0,0,.18);max-width:none;height:auto}
+    #status{padding:45px 18px;text-align:center;font-weight:700;color:#555}
+    .error{color:#a32020}
+    @media(max-width:520px){
+      .top{padding-left:6px;padding-right:6px}
+      .title{font-size:14px}
+      .btn{min-height:38px;padding:7px 10px;font-size:13px}
+      .pageinfo{min-width:70px;font-size:13px}
+      #viewer{padding-left:3px;padding-right:3px}
+    }
+  </style>
+</head>
+<body>
+  <header class="top">
+    <div class="title" id="title">Kitap Okuyucu</div>
+    <div class="controls">
+      <a class="btn secondary" href="./">← Kitaplar</a>
+      <button class="btn" id="prev" type="button">‹ Önceki</button>
+      <span class="pageinfo" id="pageInfo">- / -</span>
+      <button class="btn" id="next" type="button">Sonraki ›</button>
+      <button class="btn secondary" id="zoomOut" type="button">−</button>
+      <button class="btn secondary" id="zoomIn" type="button">+</button>
+    </div>
+  </header>
+
+  <main id="viewer">
+    <div id="status">Kitap hazırlanıyor…</div>
+    <canvas id="canvas" aria-label="PDF sayfası"></canvas>
+  </main>
+
+  <script type="module">
+    import * as pdfjsLib from 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/6.3.289/pdf.min.mjs';
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/6.3.289/pdf.worker.min.mjs';
+
+    const params = new URLSearchParams(location.search);
+    const requestedFile = params.get('file') || '';
+    const title = params.get('title') || 'Kitap Okuyucu';
+    const safeFile = /^[A-Za-z0-9_\-.]+\.pdf$/.test(requestedFile) ? requestedFile : '';
+
+    const titleEl = document.getElementById('title');
+    const statusEl = document.getElementById('status');
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d', {alpha:false});
+    const pageInfo = document.getElementById('pageInfo');
+    const prevBtn = document.getElementById('prev');
+    const nextBtn = document.getElementById('next');
+    const zoomInBtn = document.getElementById('zoomIn');
+    const zoomOutBtn = document.getElementById('zoomOut');
+
+    titleEl.textContent = title;
+    document.title = title;
+
+    let pdfDoc = null;
+    let pageNum = 1;
+    let scale = 1;
+    let rendering = false;
+    let pendingPage = null;
+
+    function fitScale(page){
+      const base = page.getViewport({scale:1});
+      const available = Math.max(280, Math.min(window.innerWidth - 12, 980));
+      return available / base.width;
+    }
+
+    async function renderPage(num){
+      if(!pdfDoc || rendering) { pendingPage = num; return; }
+      rendering = true;
+      try{
+        const page = await pdfDoc.getPage(num);
+        const viewport = page.getViewport({scale});
+        const outputScale = Math.min(window.devicePixelRatio || 1, 2);
+        canvas.width = Math.floor(viewport.width * outputScale);
+        canvas.height = Math.floor(viewport.height * outputScale);
+        canvas.style.width = `${Math.floor(viewport.width)}px`;
+        canvas.style.height = `${Math.floor(viewport.height)}px`;
+        canvas.style.display = 'block';
+        statusEl.style.display = 'none';
+        await page.render({
+          canvasContext: ctx,
+          viewport,
+          transform: outputScale !== 1 ? [outputScale,0,0,outputScale,0,0] : null
+        }).promise;
+        pageInfo.textContent = `${pageNum} / ${pdfDoc.numPages}`;
+        prevBtn.disabled = pageNum <= 1;
+        nextBtn.disabled = pageNum >= pdfDoc.numPages;
+        window.scrollTo({top:0,behavior:'instant'});
+      } catch (e) {
+        statusEl.style.display = 'block';
+        statusEl.className = 'error';
+        statusEl.textContent = 'Bu sayfa görüntülenemedi.';
+        canvas.style.display = 'none';
+        console.error(e);
+      } finally {
+        rendering = false;
+        if(pendingPage !== null){
+          const next = pendingPage;
+          pendingPage = null;
+          renderPage(next);
+        }
+      }
+    }
+
+    async function openPdf(){
+      if(!safeFile){
+        statusEl.className = 'error';
+        statusEl.textContent = 'Geçerli kitap seçilmedi.';
+        return;
+      }
+      try{
+        const url = `pdf/${encodeURIComponent(safeFile)}`;
+        pdfDoc = await pdfjsLib.getDocument({url}).promise;
+        const firstPage = await pdfDoc.getPage(1);
+        scale = Math.min(Math.max(fitScale(firstPage), .55), 2.2);
+        pageNum = 1;
+        await renderPage(pageNum);
+      } catch(e){
+        statusEl.className = 'error';
+        statusEl.textContent = 'Kitap açılamadı. İnternet bağlantınızı kontrol edip tekrar deneyin.';
+        console.error(e);
+      }
+    }
+
+    prevBtn.addEventListener('click',()=>{ if(pdfDoc && pageNum > 1){ pageNum--; renderPage(pageNum); } });
+    nextBtn.addEventListener('click',()=>{ if(pdfDoc && pageNum < pdfDoc.numPages){ pageNum++; renderPage(pageNum); } });
+    zoomInBtn.addEventListener('click',()=>{ if(pdfDoc){ scale = Math.min(scale * 1.15, 3); renderPage(pageNum); } });
+    zoomOutBtn.addEventListener('click',()=>{ if(pdfDoc){ scale = Math.max(scale / 1.15, .45); renderPage(pageNum); } });
+
+    let resizeTimer;
+    window.addEventListener('orientationchange',()=>{
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(async()=>{
+        if(!pdfDoc) return;
+        const page = await pdfDoc.getPage(pageNum);
+        scale = Math.min(Math.max(fitScale(page), .55), 2.2);
+        renderPage(pageNum);
+      },250);
+    });
+
+    openPdf();
+  </script>
+</body>
+</html>
