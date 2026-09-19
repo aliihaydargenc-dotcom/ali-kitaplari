@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://aliihaydargenc-dotcom.github.io/ali-kitaplari/</loc>
-    <lastmod>2026-09-19</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
-  </url>
-  <url>
-    <loc>https://aliihaydargenc-dotcom.github.io/ali-kitaplari/kitaplar/ali-ile-annesinin-deniz-piknigi/</loc>
-    <lastmod>2026-09-19</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
+  <url><loc>https://aliihaydargenc-dotcom.github.io/ali-kitaplari/</loc><lastmod>2026-09-19</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://aliihaydargenc-dotcom.github.io/ali-kitaplari/kitaplar/ali-ile-kaybolan-kirmizi-top/</loc><lastmod>2026-09-19</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://aliihaydargenc-dotcom.github.io/ali-kitaplari/kitaplar/ali-ile-annesinin-park-gunu/</loc><lastmod>2026-09-19</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://aliihaydargenc-dotcom.github.io/ali-kitaplari/kitaplar/ali-ile-annesinin-deniz-piknigi/</loc><lastmod>2026-09-19</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://aliihaydargenc-dotcom.github.io/ali-kitaplari/kitaplar/ali-babasiyla-kamp-yapmaya-gidiyor/</loc><lastmod>2026-09-19</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://aliihaydargenc-dotcom.github.io/ali-kitaplari/kitaplar/ali-babasiyla-balik-tutmaya-gidiyor/</loc><lastmod>2026-09-19</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://aliihaydargenc-dotcom.github.io/ali-kitaplari/kitaplar/ali-ve-yagmurlu-gun-macerasi/</loc><lastmod>2026-09-19</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://aliihaydargenc-dotcom.github.io/ali-kitaplari/kitaplar/ali-ve-yildiz-kurabiyeler/</loc><lastmod>2026-09-19</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://aliihaydargenc-dotcom.github.io/ali-kitaplari/kitaplar/ali-ve-ruzgara-takilan-ucurtma/</loc><lastmod>2026-09-19</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://aliihaydargenc-dotcom.github.io/ali-kitaplari/kitaplar/mino-ve-derenin-oteki-tarafi/</loc><lastmod>2026-09-19</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
 </urlset>
