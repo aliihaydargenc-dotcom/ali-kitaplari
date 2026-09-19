@@ -1,4 +1,6 @@
 User-agent: *
 Allow: /
+Disallow: /pdf/
+Disallow: /reader.html
 
 Sitemap: https://aliihaydargenc-dotcom.github.io/ali-kitaplari/sitemap.xml
