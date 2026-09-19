@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://aliihaydargenc-dotcom.github.io/ali-kitaplari/sitemap.xml
